@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
+          integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF"
+          crossorigin="anonymous">
+    <script type="text/javascript" th:src="@{/css/js/jquery-3.6.0.min.js}"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#userTable').DataTable();
+        });
+    </script>
+
+
+    <style>
+        .navbar-dark .navbar-brand{
+            color: #fff;
+            margin-left: 30px;
+        }
+        .navbar-expand-lg .navbar-collapse{
+            display: flex!important;
+            flex-basis: auto;
+            margin-left: 700px;
+        }
+        .dataTables_filter{
+            padding: 6px;
+            margin-top: 8px;
+            font-size: 17px;
+            border: none;
+        }
+
+        [type=search] {
+            outline-offset: -2px;
+            -webkit-appearance: textfield;
+            padding: 6px;
+            margin-top: 8px;
+            font-size: 17px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container my-2">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">San Jose Parish </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/admin}">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href= "@{/reservation-lists}">Reservations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href= "@{/rental-list}">Rentals</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href= "@{/payment-list}">Payments</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <br>
+    <br>
+
+
+    <h1>User List</h1>
+
+
+    <table border="1" class="table table striped table-responsive-md" id="userTable">
+        <thead>
+        <tr>
+            <th>Email</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Contact no.</th>
+            <th>Address</th>
+            <th>Roles</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user: ${listUsers}">
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.FirstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.contact}"></td>
+            <td th:text="${user.address}"></td>
+            <td th:text="${user.roles}"></td>
+            <td>
+                <a th:href="@{'/users/edit/' + ${user.id}}"> <button type="button" class="btn btn-primary">Edit</button> </a>
+                <a th:href="@{'/users/delete/' + ${user.id}}"> <button type="button" class="btn btn-danger">Delete</button> </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+
+</body>
+</html>
